@@ -87,8 +87,10 @@ class SparkRuntimeException(errorClass: String, messageParameters: Array[String]
   extends RuntimeException(SparkThrowableHelper.getMessage(errorClass, messageParameters))
     with SparkThrowable {
 
+  override def getCause: Throwable = cause
   override def getErrorClass: String = errorClass
   override def getSqlState: String = SparkThrowableHelper.getSqlState(errorClass)
+
 }
 
 /**

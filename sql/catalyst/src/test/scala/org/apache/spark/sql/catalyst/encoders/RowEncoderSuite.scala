@@ -19,6 +19,7 @@ package org.apache.spark.sql.catalyst.encoders
 
 import scala.util.Random
 
+import org.apache.spark.SparkRuntimeException
 import org.apache.spark.sql.{RandomDataGenerator, Row}
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.plans.CodegenInterpretedPlanTest
@@ -189,7 +190,7 @@ class RowEncoderSuite extends CodegenInterpretedPlanTest {
       } match {
         case e: ArithmeticException =>
           assert(e.getMessage.contains("cannot be represented as Decimal"))
-        case e: RuntimeException =>
+        case e: SparkRuntimeException =>
           assert(e.getCause.isInstanceOf[ArithmeticException])
           assert(e.getCause.getMessage.contains("cannot be represented as Decimal"))
       }
@@ -223,11 +224,11 @@ class RowEncoderSuite extends CodegenInterpretedPlanTest {
     assert(encoder.serializer.length == 1)
     assert(encoder.serializer.head.dataType ==
       new StructType()
-      .add("i", IntegerType, nullable = false)
-      .add(
-        "s",
-        new StructType().add("int", IntegerType, nullable = false),
-        nullable = false))
+        .add("i", IntegerType, nullable = false)
+        .add(
+          "s",
+          new StructType().add("int", IntegerType, nullable = false),
+          nullable = false))
     assert(encoder.serializer.head.nullable == false)
   }
 

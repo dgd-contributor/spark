@@ -1051,7 +1051,7 @@ object QueryExecutionErrors {
 
   def expressionDecodingError(e: Exception, expressions: Seq[Expression]): Throwable = {
     new SparkRuntimeException(
-      errorClass = "EXPRESSION_DECODEDING_ERROR",
+      errorClass = "EXPRESSION_DECODING_ERROR",
       messageParameters = Array(
         e.toString,
         expressions.map(_.simpleString(SQLConf.get.maxToStringFields)).mkString("\n")), e)
