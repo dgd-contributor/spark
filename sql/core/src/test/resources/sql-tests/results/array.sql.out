@@ -183,7 +183,7 @@ select element_at(array(1, 2, 3), 0)
 -- !query schema
 struct<>
 -- !query output
-org.apache.spark.SparkArrayIndexOutOfBoundsException
+java.lang.ArrayIndexOutOfBoundsException
 SQL array indices start at 1
 
 
