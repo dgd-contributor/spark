@@ -73,12 +73,12 @@
     "message" : [ "Field name %s is invalid: %s is not a struct." ],
     "sqlState" : "42000"
   },
-  "INVALID_JSON_SCHEMA_MAPTYPE" : {
-    "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
-  },
   "INVALID_INPUT_SYNTAX_FOR_BOOLEAN_ERROR" : {
     "message" : [ "invalid input syntax for type boolean: %s" ],
     "sqlState" : "42000"
+  },
+  "INVALID_JSON_SCHEMA_MAPTYPE" : {
+    "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
   },
   "MALFORMED_JSON_ERROR" : {
     "message" : [ "Malformed JSON" ],
