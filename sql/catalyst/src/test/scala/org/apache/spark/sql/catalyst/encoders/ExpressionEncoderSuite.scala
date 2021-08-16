@@ -24,6 +24,7 @@ import java.util.Arrays
 import scala.collection.mutable.ArrayBuffer
 import scala.reflect.runtime.universe.TypeTag
 
+import org.apache.spark.SparkRuntimeException
 import org.apache.spark.sql.{Encoder, Encoders}
 import org.apache.spark.sql.catalyst.{FooClassWithEnum, FooEnum, OptionalData, PrimitiveData}
 import org.apache.spark.sql.catalyst.analysis.AnalysisTest
@@ -610,10 +611,11 @@ class ExpressionEncoderSuite extends CodegenInterpretedPlanTest with AnalysisTes
             val convertedBack = fromRow(toRow(bigNumeric))
             assert(convertedBack === null)
           } else {
-            val e = intercept[RuntimeException] {
+            val e = intercept[SparkRuntimeException] {
               toRow(bigNumeric)
             }
             assert(e.getMessage.contains("Error while encoding"))
+            assert(e.getErrorClass == "EXPRESSION_ENCODING_ERROR")
             assert(e.getCause.getClass === classOf[ArithmeticException])
           }
         }
