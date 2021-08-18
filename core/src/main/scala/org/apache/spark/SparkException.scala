@@ -17,6 +17,8 @@
 
 package org.apache.spark
 
+import java.io.IOException
+
 class SparkException(
     message: String,
     cause: Throwable,
@@ -75,6 +77,42 @@ private[spark] class SparkUpgradeException(version: String, message: String, cau
 class SparkArithmeticException(errorClass: String, messageParameters: Array[String])
   extends ArithmeticException(SparkThrowableHelper.getMessage(errorClass, messageParameters))
     with SparkThrowable {
+
+  override def getErrorClass: String = errorClass
+  override def getSqlState: String = SparkThrowableHelper.getSqlState(errorClass)
+}
+
+/**
+ * Unsupported operation exception thrown form Spark with an error class.
+ */
+class SparkUnsupportedOperationException(errorClass: String, messageParameters: Array[String])
+  extends UnsupportedOperationException(SparkThrowableHelper.getMessage(errorClass,
+    messageParameters))
+    with SparkThrowable {
+
+  override def getErrorClass: String = errorClass
+  override def getSqlState: String = SparkThrowableHelper.getSqlState(errorClass)
+}
+
+/**
+ * IOException thrown from Spark with an error class.
+ */
+class SparkIOException(errorClass: String, messageParameters: Array[String])
+  extends IOException(SparkThrowableHelper.getMessage(errorClass,
+    messageParameters))
+    with SparkThrowable {
+
+  override def getErrorClass: String = errorClass
+  override def getSqlState: String = SparkThrowableHelper.getSqlState(errorClass)
+}
+
+/**
+ * Out of memory error thrown from Spark with an error class
+ */
+class SparkOutOfMemoryErrorScl(errorClass: String, messageParameters: Array[String])
+  extends OutOfMemoryError(SparkThrowableHelper.getMessage(errorClass,
+  messageParameters))
+  with SparkThrowable {
 
   override def getErrorClass: String = errorClass
   override def getSqlState: String = SparkThrowableHelper.getSqlState(errorClass)

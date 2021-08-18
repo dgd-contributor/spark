@@ -32,7 +32,7 @@ import org.apache.hadoop.fs.permission.FsPermission
 import org.codehaus.commons.compiler.CompileException
 import org.codehaus.janino.InternalCompilerException
 
-import org.apache.spark.{Partition, SparkArithmeticException, SparkException, SparkUpgradeException}
+import org.apache.spark.{Partition, SparkArithmeticException, SparkException, SparkIOException, SparkOutOfMemoryErrorScl, SparkUnsupportedOperationException, SparkUpgradeException}
 import org.apache.spark.executor.CommitDeniedException
 import org.apache.spark.launcher.SparkLauncher
 import org.apache.spark.memory.SparkOutOfMemoryError
@@ -1617,98 +1617,136 @@ object QueryExecutionErrors {
   }
 
   def cannotDropMultiPartitionsOnNonatomicPartitionTableError(tableName: String): Throwable = {
-    new UnsupportedOperationException(
-      s"Nonatomic partition table $tableName can not drop multiple partitions.")
+    new SparkUnsupportedOperationException(
+      errorClass = "CANNOT_DROP_MULTI_PARTITIONS_ON_NONATOMIC_PARTITION_TABLE_ERROR",
+      messageParameters = Array(tableName)
+    )
   }
 
   def truncateMultiPartitionUnsupportedError(tableName: String): Throwable = {
-    new UnsupportedOperationException(
-      s"The table $tableName does not support truncation of multiple partition.")
+    new SparkUnsupportedOperationException(
+      errorClass = "TRUNCATE_MULTI_PARTITION_UNSUPPORTED_ERROR",
+      messageParameters = Array(tableName)
+    )
   }
 
   def overwriteTableByUnsupportedExpressionError(table: Table): Throwable = {
-    new SparkException(s"Table does not support overwrite by expression: $table")
+    new SparkException(
+      errorClass = "OVERWRITE_TABLE_BY_UNSUPPORTED_EXPRESSION_ERROR",
+      messageParameters = Array(table.toString), null)
   }
 
   def dynamicPartitionOverwriteUnsupportedByTableError(table: Table): Throwable = {
-    new SparkException(s"Table does not support dynamic partition overwrite: $table")
+    new SparkException(
+      errorClass = "DYNAMIC_PARTITION_OVERWRITE_UNSUPPORTED_BY_TABLE_ERROR",
+      messageParameters = Array(table.toString), null)
   }
 
   def failedMergingSchemaError(schema: StructType, e: SparkException): Throwable = {
-    new SparkException(s"Failed merging schema:\n${schema.treeString}", e)
+    new SparkException(
+      errorClass = "FAILED_MERGING_SCHEMA_ERROR",
+      messageParameters = Array(schema.treeString), e)
   }
 
   def cannotBroadcastTableOverMaxTableRowsError(
       maxBroadcastTableRows: Long, numRows: Long): Throwable = {
     new SparkException(
-      s"Cannot broadcast the table over $maxBroadcastTableRows rows: $numRows rows")
+      errorClass = "CANNOT_BROADCAST_TABLE_OVER_MAX_TABLE_ROWS_ERROR",
+      messageParameters = Array(maxBroadcastTableRows.toString, numRows.toString), null)
   }
 
   def cannotBroadcastTableOverMaxTableBytesError(
       maxBroadcastTableBytes: Long, dataSize: Long): Throwable = {
-    new SparkException("Cannot broadcast the table that is larger than" +
-      s" ${maxBroadcastTableBytes >> 30}GB: ${dataSize >> 30} GB")
+    new SparkException(
+      errorClass = "CANNOT_BROADCAST_TABLE_OVER_MAX_TABLE_BYTES_ERROR",
+      messageParameters = Array({maxBroadcastTableBytes >> 30}.toString,
+        {dataSize >> 30}.toString), null)
   }
 
   def notEnoughMemoryToBuildAndBroadcastTableError(oe: OutOfMemoryError): Throwable = {
-    new OutOfMemoryError("Not enough memory to build and broadcast the table to all " +
-      "worker nodes. As a workaround, you can either disable broadcast by setting " +
-      s"${SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key} to -1 or increase the spark " +
-      s"driver memory by setting ${SparkLauncher.DRIVER_MEMORY} to a higher value.")
+    new SparkOutOfMemoryErrorScl(
+      errorClass = "NOT_ENOUGH_MEMORY_TO_BUILD_AND_BROADCAST_TABLE_ERROR",
+      messageParameters = Array(
+        SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key, SparkLauncher.DRIVER_MEMORY))
       .initCause(oe.getCause)
   }
 
   def executeCodePathUnsupportedError(execName: String): Throwable = {
-    new UnsupportedOperationException(s"$execName does not support the execute() code path.")
+    new SparkUnsupportedOperationException(
+      errorClass = "EXECUTE_CODE_PATH_UNSUPPORTED_ERROR",
+      messageParameters = Array(execName)
+    )
   }
 
   def cannotMergeClassWithOtherClassError(className: String, otherClass: String): Throwable = {
-    new UnsupportedOperationException(
-      s"Cannot merge $className with $otherClass")
+    new SparkUnsupportedOperationException(
+      errorClass = "CANNOT_MERGE_CLASS_WITH_OTHER_CLASS_ERROR",
+      messageParameters = Array(className, otherClass))
   }
 
   def continuousProcessingUnsupportedByDataSourceError(sourceName: String): Throwable = {
-    new UnsupportedOperationException(
-      s"Data source $sourceName does not support continuous processing.")
+    new SparkUnsupportedOperationException(
+      errorClass = "CONTINUOUS_PROCESSING_UNSUPPORTED_BY_DATASOURCE_ERROR",
+      messageParameters = Array(sourceName))
   }
 
   def failedToReadDataError(failureReason: Throwable): Throwable = {
-    new SparkException("Data read failed", failureReason)
+    new SparkException(
+      errorClass = "FAILED_TO_READ_DATA_ERROR",
+      messageParameters = Array.empty, failureReason)
   }
 
   def failedToGenerateEpochMarkerError(failureReason: Throwable): Throwable = {
-    new SparkException("Epoch marker generation failed", failureReason)
+    new SparkException(
+      errorClass = "FAILED_TO_GENERATE_EPOCH_MARKER_ERROR",
+      messageParameters = Array.empty, failureReason)
   }
 
   def foreachWriterAbortedDueToTaskFailureError(): Throwable = {
-    new SparkException("Foreach writer has been aborted due to a task failure")
+    new SparkException(
+      errorClass = "FOR_EACH_WRITER_ABORTED_DUE_TO_TASK_FAILURE_ERROR",
+      messageParameters = Array.empty, null)
   }
 
   def integerOverflowError(message: String): Throwable = {
-    new ArithmeticException(s"Integer overflow. $message")
+    new SparkArithmeticException(
+      errorClass = "INTEGER_OVERFLOW_ERROR",
+      messageParameters = Array(message)
+    )
   }
 
   def failedToReadDeltaFileError(fileToRead: Path, clazz: String, keySize: Int): Throwable = {
-    new IOException(
-      s"Error reading delta file $fileToRead of $clazz: key size cannot be $keySize")
+    new SparkIOException(
+      errorClass = "FAILED_TO_READ_DELTA_FILE_ERROR",
+      messageParameters = Array(fileToRead.toString, clazz, keySize.toString))
   }
 
   def failedToReadSnapshotFileError(fileToRead: Path, clazz: String, message: String): Throwable = {
-    new IOException(s"Error reading snapshot file $fileToRead of $clazz: $message")
+    new SparkIOException(
+      errorClass = "FAILED_TO_READ_SNAPSHOT_FILE_ERROR",
+      messageParameters = Array(fileToRead.toString, clazz, message)
+    )
   }
 
   def cannotPurgeAsBreakInternalStateError(): Throwable = {
-    new UnsupportedOperationException("Cannot purge as it might break internal state.")
+    new SparkUnsupportedOperationException(
+      errorClass = "CANNOT_PURGE_AS_BREAK_INTERNAL_STATE_ERROR",
+      messageParameters = Array.empty
+    )
   }
 
   def cleanUpSourceFilesUnsupportedError(): Throwable = {
-    new UnsupportedOperationException("Clean up source files is not supported when" +
-      " reading from the output directory of FileStreamSink.")
+    new SparkUnsupportedOperationException(
+      errorClass = "CLEANUP_SOURCE_FILES_UNSUPPORTED_ERROR",
+      messageParameters = Array.empty
+    )
   }
 
   def latestOffsetNotCalledError(): Throwable = {
-    new UnsupportedOperationException(
-      "latestOffset(Offset, ReadLimit) should be called instead of this method")
+    new SparkUnsupportedOperationException(
+      errorClass = "LATEST_OFFSET_NOT_CALLED_ERROR",
+      messageParameters = Array.empty
+    )
   }
 
   def legacyCheckpointDirectoryExistsError(
