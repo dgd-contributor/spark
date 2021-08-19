@@ -61,9 +61,12 @@
     "message" : [ "Field name %s is invalid: %s is not a struct." ],
     "sqlState" : "42000"
   },
+  "INVALID_JSON_SCHEMA_MAPTYPE" : {
+    "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
+  },
   "METHOD_NOT_DECLARED" : {
-    "message" : [ "A method named \"%s\" is not declared in any enclosing class nor any supertype." ],
-    "sqlState" : "42000"
+    "message": [ "A method named \"%s\" is not declared in any enclosing class nor any supertype." ],
+    "sqlState": "42000"
   },
   "MISSING_COLUMN" : {
     "message" : [ "cannot resolve '%s' given input columns: [%s]" ],
