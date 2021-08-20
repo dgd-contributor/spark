@@ -62,7 +62,8 @@
     "sqlState" : "42000"
   },
   "INVALID_JSON_SCHEMA_MAPTYPE" : {
-    "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
+    "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ],
+    "sqlState" : "42000"
   },
   "METHOD_NOT_DECLARED" : {
     "message": [ "A method named \"%s\" is not declared in any enclosing class nor any supertype." ],
