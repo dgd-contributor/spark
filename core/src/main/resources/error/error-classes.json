@@ -66,8 +66,8 @@
     "sqlState" : "42000"
   },
   "METHOD_NOT_DECLARED" : {
-    "message": [ "A method named \"%s\" is not declared in any enclosing class nor any supertype." ],
-    "sqlState": "42000"
+    "message" : [ "A method named \"%s\" is not declared in any enclosing class nor any supertype." ],
+    "sqlState" : "42000"
   },
   "MISSING_COLUMN" : {
     "message" : [ "cannot resolve '%s' given input columns: [%s]" ],
