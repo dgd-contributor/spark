@@ -3,6 +3,10 @@
     "message" : [ "Field name %s is ambiguous and has %s matching fields in the struct." ],
     "sqlState" : "42000"
   },
+  "BINARY_ARITHMETIC_CAUSE_OVERFLOW" : {
+    "message" : [ "%s %s %s caused overflow." ],
+    "sqlState" : "22015"
+  },
   "CANNOT_CAST_DATATYPE" : {
     "message" : [ "Cannot cast %s to %s." ],
     "sqlState" : "22018"
@@ -31,6 +35,9 @@
     "message" : [ "Casting %s to %s causes overflow" ],
     "sqlState" : "22018"
   },
+  "DATA_PATH_NOT_SPECIFIED" : {
+    "message" : [ "'path' is not specified" ]
+  },
   "DIVIDE_BY_ZERO" : {
     "message" : [ "divide by zero" ],
     "sqlState" : "22012"
@@ -39,9 +46,16 @@
     "message" : [ "Found duplicate keys '%s'" ],
     "sqlState" : "23000"
   },
+  "FAILED_COMPILE_MSG" : {
+    "message" : [ "failed to compile: %s" ],
+    "sqlState" : "42000"
+  },
   "FAILED_EXECUTE_UDF" : {
     "message" : [ "Failed to execute user defined function (%s: (%s) => %s)" ],
     "sqlState" : "45000"
+  },
+  "FAILED_SPLIT_SUB_EXPRESSION_MSG" : {
+    "message" : [ "Failed to split subexpression code into small functions because the parameter length of at least one split function went over the JVM limit: %s" ]
   },
   "GROUPING_COLUMN_MISMATCH" : {
     "message" : [ "Column of grouping (%s) can't be found in grouping columns %s" ],
@@ -61,24 +75,29 @@
     "message" : [ "Invalid pivot column '%s'. Pivot columns must be comparable." ],
     "sqlState" : "42000"
   },
+  "INVALID_ARRAY_INDEX" : {
+    "message" : [ "Invalid index: %s, numElements: %s" ]
+  },
   "INVALID_FIELD_NAME" : {
     "message" : [ "Field name %s is invalid: %s is not a struct." ],
     "sqlState" : "42000"
-  },
-  "INVALID_JSON_SCHEMA_MAPTYPE" : {
-    "message": [
-      "Input schema %s can only contain StringType as a key type for a MapType."
-    ]
   },
   "INVALID_INPUT_SYNTAX_FOR_NUMERIC" : {
     "message" : [ "invalid input syntax for type numeric: %s" ],
     "sqlState" : "42000"
   },
-  "INVALID_ARRAY_INDEX" : {
-    "message" : [ "Invalid index: %s, numElements: %s" ]
+  "INVALID_JSON_SCHEMA_MAPTYPE" : {
+    "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
   },
   "LOGICAL_HINT_OPERATOR_NOT_REMOVE_DURING_ANALYSIS" : {
     "message" : [ "Internal error: logical hint operator should have been removed during analysis" ]
+  },
+  "MAP_KEY_NOT_EXIST" : {
+    "message" : [ "Key %s does not exist." ]
+  },
+  "METHOD_NOT_IMPLEMENTED" : {
+    "message" : [ "%s is not implemented" ],
+    "sqlState" : "HYC00"
   },
   "MISSING_COLUMN" : {
     "message" : [ "cannot resolve '%s' given input columns: [%s]" ],
@@ -88,9 +107,6 @@
     "message" : [ "Unknown static partition column: %s" ],
     "sqlState" : "42000"
   },
-  "MAP_KEY_NOT_EXIST" : {
-    "message" : [ "Key %s does not exist." ]
-  },
   "NON_LITERAL_PIVOT_VALUES" : {
     "message" : [ "Literal expressions required for pivot values, found '%s'" ],
     "sqlState" : "42000"
@@ -98,6 +114,9 @@
   "NON_PARTITION_COLUMN" : {
     "message" : [ "PARTITION clause cannot contain a non-partition column name: %s" ],
     "sqlState" : "42000"
+  },
+  "NOT_A_DATA_SOURCE_RDD_PARTITION" : {
+    "message" : [ "[BUG] Not a DataSourceRDDPartition: %s" ]
   },
   "PIVOT_VALUE_DATA_TYPE_MISMATCH" : {
     "message" : [ "Invalid pivot value '%s': value data type %s does not match pivot column data type %s" ],
@@ -111,8 +130,40 @@
     "message" : [ "The second argument of '%s' function needs to be an integer." ],
     "sqlState" : "22023"
   },
+  "TABLE_STATS_MUST_SPECIFIED" : {
+    "message" : [ "table stats must be specified." ],
+    "sqlState" : "42000"
+  },
+  "UNABLE_CREATE_DATABASE_AS_FAILED_CREATE_DIRECTORY" : {
+    "message" : [ "Unable to create database %s as failed to create its directory %s" ]
+  },
+  "UNABLE_CREATE_PARTITION" : {
+    "message" : [ "Unable to create partition path %s" ]
+  },
+  "UNABLE_CREATE_TABLE_AS_FAILED_CREATE_DIRECTORY" : {
+    "message" : [ "Unable to create table %s as failed to create its directory %s" ]
+  },
+  "UNABLE_DELETE_PARTITION" : {
+    "message" : [ "Unable to delete partition path %s" ]
+  },
+  "UNABLE_DROP_DATABASE_AS_FAILED_DELETE_DIRECTORY" : {
+    "message" : [ "Unable to drop database %s as failed to delete its directory %s" ]
+  },
+  "UNABLE_DROP_TABLE_AS_FAILED_DELETE_DIRECTORY" : {
+    "message" : [ "Unable to drop table %s as failed to delete its directory %s" ]
+  },
+  "UNABLE_RENAME_PARTITION" : {
+    "message" : [ "Unable to rename partition path %s" ]
+  },
+  "UNABLE_RENAME_TABLE_AS_FAILED_RENAME_DIRECTORY" : {
+    "message" : [ "Unable to rename table %s to %s as failed to rename its directory %s" ]
+  },
   "UNABLE_TO_ACQUIRE_MEMORY" : {
     "message" : [ "Unable to acquire %s bytes of memory, got %s" ]
+  },
+  "UNARY_MINUS_CAUSE_OVERFLOW" : {
+    "message" : [ "- %s caused overflow." ],
+    "sqlState" : "22015"
   },
   "UNSUPPORTED_CHANGE_COLUMN" : {
     "message" : [ "Please add an implementation for a column change here" ],
@@ -126,65 +177,12 @@
     "message" : [ "%s does not implement simpleStringWithNodeId" ],
     "sqlState" : "0A000"
   },
-  "WRITING_JOB_ABORTED" : {
-    "message" : [ "Writing job aborted" ],
-    "sqlState" : "40000"
-  },
-  "UNABLE_CREATE_DATABASE_AS_FAILED_CREATE_DIRECTORY" : {
-    "message" : [ "Unable to create database %s as failed to create its directory %s" ]
-  },
-  "UNABLE_DROP_DATABASE_AS_FAILED_DELETE_DIRECTORY" : {
-    "message" : [ "Unable to drop database %s as failed to delete its directory %s" ]
-  },
-  "UNABLE_CREATE_TABLE_AS_FAILED_CREATE_DIRECTORY" : {
-    "message" : [ "Unable to create table %s as failed to create its directory %s" ]
-  },
-  "UNABLE_DELETE_PARTITION" : {
-    "message" : [ "Unable to delete partition path %s" ]
-  },
-  "UNABLE_DROP_TABLE_AS_FAILED_DELETE_DIRECTORY" : {
-    "message" : [ "Unable to drop table %s as failed to delete its directory %s" ]
-  },
-  "UNABLE_RENAME_TABLE_AS_FAILED_RENAME_DIRECTORY" : {
-    "message" : [ "Unable to rename table %s to %s as failed to rename its directory %s" ]
-  },
-  "UNABLE_CREATE_PARTITION" : {
-    "message" : [ "Unable to create partition path %s" ]
-  },
-  "UNABLE_RENAME_PARTITION" : {
-    "message" : [ "Unable to rename partition path %s" ]
-  },
-  "METHOD_NOT_IMPLEMENTED" : {
-    "message" : [ "%s is not implemented" ],
-    "sqlState" : "HYC00"
-  },
-  "TABLE_STATS_MUST_SPECIFIED" : {
-    "message" : [ "table stats must be specified." ],
-    "sqlState" : "42000"
-  },
-  "UNARY_MINUS_CAUSE_OVERFLOW" : {
-    "message" : [ "- %s caused overflow." ],
-    "sqlState" : "22015"
-  },
-  "BINARY_ARITHMETIC_CAUSE_OVERFLOW" : {
-    "message" : [ "%s %s %s caused overflow." ],
-    "sqlState" : "22015"
-  },
-  "FAILED_SPLIT_SUB_EXPRESSION_MSG" : {
-    "message" : [ "Failed to split subexpression code into small functions because the parameter length of at least one split function went over the JVM limit: %s" ]
-  },
-  "FAILED_COMPILE_MSG" : {
-    "message" : [ "failed to compile: %s" ],
-    "sqlState" : "42000"
-  },
   "UNSUPPORTED_TABLE_CHANGE" : {
     "message" : [ "Unsupported table change: %s" ],
     "sqlState" : "42000"
   },
-  "NOT_A_DATA_SOURCE_RDD_PARTITION" : {
-    "message" : [ "[BUG] Not a DataSourceRDDPartition: %s" ]
-  },
-  "DATA_PATH_NOT_SPECIFIED" : {
-    "message" : [ "'path' is not specified" ]
+  "WRITING_JOB_ABORTED" : {
+    "message" : [ "Writing job aborted" ],
+    "sqlState" : "40000"
   }
 }
