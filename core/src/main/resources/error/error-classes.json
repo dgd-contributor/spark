@@ -30,16 +30,16 @@
     "message" : [ "Found duplicate keys '%s'" ],
     "sqlState" : "23000"
   },
-  "FAIL_TO_CONVERT_VALUE_TO_JSON" : {
-    "message" : [ "Failed to convert value %s (class of %s) with the type of %s to JSON." ],
-    "sqlState" : "42000"
-  },
   "FAILED_RENAME_PATH" : {
     "message" : [ "Failed to rename %s to %s as destination already exists" ],
     "sqlState" : "22023"
   },
   "FAILED_SET_ORIGINAL_PERMISSION_BACK" : {
     "message" : [ "Failed to set original permission %s back to the created path: %s. Exception: %s" ]
+  },
+  "FAIL_TO_CONVERT_VALUE_TO_JSON" : {
+    "message" : [ "Failed to convert value %s (class of %s) with the type of %s to JSON." ],
+    "sqlState" : "42000"
   },
   "FIELD_CANNOT_BE_NULL" : {
     "message" : [ "The %sth field '%s' of input row cannot be null." ],
