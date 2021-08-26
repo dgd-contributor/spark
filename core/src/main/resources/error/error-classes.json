@@ -3,8 +3,36 @@
     "message" : [ "Field name %s is ambiguous and has %s matching fields in the struct." ],
     "sqlState" : "42000"
   },
+  "CANNOT_BROADCAST_TABLE_OVER_MAX_TABLE_BYTES_ERROR" : {
+    "message" : [ "Cannot broadcast the table that is larger than %s GB: %s GB" ],
+    "sqlState" : "42000"
+  },
+  "CANNOT_BROADCAST_TABLE_OVER_MAX_TABLE_ROWS_ERROR" : {
+    "message" : [ "Cannot broadcast the table over %s rows: %s rows" ],
+    "sqlState" : "42000"
+  },
+  "CANNOT_DROP_MULTI_PARTITIONS_ON_NONATOMIC_PARTITION_TABLE_ERROR" : {
+    "message" : [ "Nonatomic partition table %s can not drop multiple partitions." ],
+    "sqlState" : "42000"
+  },
+  "CANNOT_MERGE_CLASS_WITH_OTHER_CLASS_ERROR" : {
+    "message" : [ "Cannot merge %s with %s" ],
+    "sqlState" : "42000"
+  },
+  "CANNOT_PURGE_AS_BREAK_INTERNAL_STATE_ERROR" : {
+    "message" : [ "Cannot purge as it might break internal state." ],
+    "sqlState" : "42000"
+  },
+  "CLEANUP_SOURCE_FILES_UNSUPPORTED_ERROR" : {
+    "message" : [ "Clean up source files is not supported when reading from the output directory of FileStreamSink." ],
+    "sqlState" : "0A000"
+  },
   "CONCURRENT_QUERY_ERROR" : {
     "message" : [ "Another instance of this query was just started by a concurrent session." ]
+  },
+  "CONTINUOUS_PROCESSING_UNSUPPORTED_BY_DATASOURCE_ERROR" : {
+    "message" : [ "Data source %s does not support continuous processing." ],
+    "sqlState" : "0A000"
   },
   "DIVIDE_BY_ZERO" : {
     "message" : [ "divide by zero" ],
@@ -14,12 +42,40 @@
     "message" : [ "Found duplicate keys '%s'" ],
     "sqlState" : "23000"
   },
+  "DYNAMIC_PARTITION_OVERWRITE_UNSUPPORTED_BY_TABLE_ERROR" : {
+    "message" : [ "Table does not support dynamic partition overwrite: %s" ],
+    "sqlState" : "0A000"
+  },
+  "EXECUTE_CODE_PATH_UNSUPPORTED_ERROR" : {
+    "message" : [ "%s does not support the execute() code path." ],
+    "sqlState" : "0A000"
+  },
+  "FAILED_MERGING_SCHEMA_ERROR" : {
+    "message" : [ "Failed merging schema:\n%s" ]
+  },
   "FAILED_RENAME_PATH" : {
     "message" : [ "Failed to rename %s to %s as destination already exists" ],
     "sqlState" : "22023"
   },
   "FAILED_SET_ORIGINAL_PERMISSION_BACK" : {
     "message" : [ "Failed to set original permission %s back to the created path: %s. Exception: %s" ]
+  },
+  "FAILED_TO_GENERATE_EPOCH_MARKER_ERROR" : {
+    "message" : [ "Epoch marker generation failed" ]
+  },
+  "FAILED_TO_READ_DATA_ERROR" : {
+    "message" : [ "Data read failed" ]
+  },
+  "FAILED_TO_READ_DELTA_FILE_ERROR" : {
+    "message" : [ "Error reading delta file %s of %s: key size cannot be %s" ],
+    "sqlState" : "42000"
+  },
+  "FAILED_TO_READ_SNAPSHOT_FILE_ERROR" : {
+    "message" : [ "Error reading snapshot file %s of %s: $message" ],
+    "sqlState" : "42000"
+  },
+  "FOR_EACH_WRITER_ABORTED_DUE_TO_TASK_FAILURE_ERROR" : {
+    "message" : [ "Foreach writer has been aborted due to a task failure" ]
   },
   "GROUPING_COLUMN_MISMATCH" : {
     "message" : [ "Column of grouping (%s) can't be found in grouping columns %s" ],
@@ -46,6 +102,10 @@
     "message" : [ "Index %s must be between 0 and the length of the ArrayData." ],
     "sqlState" : "22023"
   },
+  "INTEGER_OVERFLOW_ERROR" : {
+    "message" : [ "Integer overflow. %s" ],
+    "sqlState" : "22003"
+  },
   "INVALID_FIELD_NAME" : {
     "message" : [ "Field name %s is invalid: %s is not a struct." ],
     "sqlState" : "42000"
@@ -56,6 +116,10 @@
   },
   "INVALID_JSON_SCHEMA_MAPTYPE" : {
     "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
+  },
+  "LATEST_OFFSET_NOT_CALLED_ERROR" : {
+    "message" : [ "latestOffset(Offset, ReadLimit) should be called instead of this method" ],
+    "sqlState" : "42000"
   },
   "MISSING_COLUMN" : {
     "message" : [ "cannot resolve '%s' given input columns: [%s]" ],
@@ -77,6 +141,14 @@
     "message" : [ "PARTITION clause cannot contain a non-partition column name: %s" ],
     "sqlState" : "42000"
   },
+  "NOT_ENOUGH_MEMORY_TO_BUILD_AND_BROADCAST_TABLE_ERROR" : {
+    "message" : [ "Not enough memory to build and broadcast the table to all worker nodes. As a workaround, you can either disable broadcast by setting %s to -1 or increase the spark driver memory by setting %s to a higher value." ],
+    "sqlState" : "42000"
+  },
+  "OVERWRITE_TABLE_BY_UNSUPPORTED_EXPRESSION_ERROR" : {
+    "message" : [ "Table does not support overwrite by expression: %s" ],
+    "sqlState" : "0A000"
+  },
   "PIVOT_VALUE_DATA_TYPE_MISMATCH" : {
     "message" : [ "Invalid pivot value '%s': value data type %s does not match pivot column data type %s" ],
     "sqlState" : "42000"
@@ -88,6 +160,10 @@
   "SECOND_FUNCTION_ARGUMENT_NOT_INTEGER" : {
     "message" : [ "The second argument of '%s' function needs to be an integer." ],
     "sqlState" : "22023"
+  },
+  "TRUNCATE_MULTI_PARTITION_UNSUPPORTED_ERROR" : {
+    "message" : [ "The table %s does not support truncation of multiple partition." ],
+    "sqlState" : "0A000"
   },
   "UNABLE_TO_ACQUIRE_MEMORY" : {
     "message" : [ "Unable to acquire %s bytes of memory, got %s" ]
