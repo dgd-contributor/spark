@@ -34,7 +34,7 @@
     "message" : [ "Failed to convert value %s (class of %s) with the type of %s to JSON." ],
     "sqlState" : "42000"
   },
-    "FAILED_RENAME_PATH" : {
+  "FAILED_RENAME_PATH" : {
     "message" : [ "Failed to rename %s to %s as destination already exists" ],
     "sqlState" : "22023"
   },
