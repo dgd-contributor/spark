@@ -716,7 +716,7 @@ private object YarnAddJarTest extends Logging {
         assert(settingsFile === expectedIvySettingsPath)
       }
 
-      val caught = intercept[RuntimeException] {
+      val caught = intercept[SparkRuntimeException] {
         sc.addJar("ivy://org.fake-project.test:test:1.0.0")
       }
       if (caught.getMessage.contains("unresolved dependency: org.fake-project.test#test")) {
