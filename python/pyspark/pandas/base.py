@@ -47,6 +47,8 @@ from pyspark.pandas.utils import (
     scol_for,
     validate_axis,
     ERROR_MESSAGE_CANNOT_COMBINE,
+    verify_temp_column_name,
+    default_session,
 )
 from pyspark.pandas.frame import DataFrame
 
@@ -866,14 +868,57 @@ class IndexOpsMixin(object, metaclass=ABCMeta):
         >>> s.rename("a").to_frame().set_index("a").index.isin(['lama'])
         Index([True, False, True, False, True, False], dtype='object', name='a')
         """
+        from pyspark.pandas.series import Series, first_series
+
         if not is_list_like(values):
             raise TypeError(
                 "only list-like objects are allowed to be passed"
                 " to isin(), you passed a [{values_type}]".format(values_type=type(values).__name__)
             )
 
-        values = values.tolist() if isinstance(values, np.ndarray) else list(values)
-        return self._with_new_scol(self.spark.column.isin([SF.lit(v) for v in values]))
+        values = values.tolist() if isinstance(values, np.ndarray) else values
+        isin_limit = get_option("compute.isin_limit")
+        values_spark_column = verify_temp_column_name(self._internal.spark_frame, "__values_tmp__")
+
+        if isinstance(values, IndexOpsMixin):
+            values_spark_column = verify_temp_column_name(
+                self._internal.spark_frame, values_spark_column
+            )
+            values_sdf = values._internal.spark_frame.select(
+                values.spark.column.alias(values_spark_column)
+            ).distinct()
+        elif len(values) < isin_limit:
+            return self._with_new_scol(self.spark.column.isin([SF.lit(v) for v in values]))
+        else:
+            values_sdf = (
+                default_session()
+                .createDataFrame(pd.DataFrame({values_spark_column: values}))
+                .distinct()
+            )
+
+        joined_sdf = self._internal.spark_frame.join(
+            other=values_sdf,
+            on=(self.spark.column == scol_for(values_sdf, values_spark_column)),
+            how="left",
+        )
+        scol = F.when(scol_for(joined_sdf, values_spark_column).isNull(), False).otherwise(True)
+        sdf = joined_sdf.withColumn(self._internal.spark_column_name_for(self.spark.column), scol)
+
+        internal = InternalFrame(
+            spark_frame=sdf,
+            index_names=self._internal.index_names,
+            index_spark_columns=[
+                scol_for(sdf, col) for col in self._internal.index_spark_column_names
+            ],
+            data_spark_columns=[scol_for(sdf, self._internal.data_spark_column_names[0])],
+            column_labels=[self._column_label],
+        )
+
+        return (
+            first_series(DataFrame(internal))
+            if isinstance(self, Series)
+            else DataFrame(internal).index
+        )
 
     def isnull(self: IndexOpsLike) -> IndexOpsLike:
         """

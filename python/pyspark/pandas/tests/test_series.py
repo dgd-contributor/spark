@@ -394,6 +394,46 @@ class SeriesTest(PandasOnSparkTestCase, SQLTestUtils):
         with self.assertRaisesRegex(TypeError, msg):
             psser.isin(1)
 
+        self.assert_eq(psser.isin(psser), pser.isin(pser))
+        self.assert_eq(psser.isin(pser), pser.isin(pser))
+
+        pser = pd.Series([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], name="animal")
+        psser = ps.from_pandas(pser)
+
+        # ps.Series
+        other_pser = pd.Series([1, 11, 3, 3, 3, 12])
+        other_psser = ps.from_pandas(other_pser)
+        self.assert_eq(psser.isin(other_psser).sort_index(), pser.isin(other_pser).sort_index())
+
+        # ps.Index
+        other_pidx = pd.Index([1, 11, 3, 3, 3, 12])
+        other_psidx = ps.from_pandas(other_pser)
+        self.assert_eq(psser.isin(other_psidx).sort_index(), pser.isin(other_pidx).sort_index())
+
+        # other list-like
+        other = pd.Index([1, 11, 3, 3, 3, 12])
+        self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+
+        other = pd.Series([1, 11, 3, 3, 3, 12])
+        self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+
+        other = np.random.randint(100, size=10)
+        self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+
+        # compute.isin_limit
+        other = pd.Index([1, 11, 3, 3, 3, 12] * 20)
+        with ps.option_context("compute.isin_limit", 80):
+            self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+
+        other = pd.Series([1, 11, 3, 3, 3, 12] * 20)
+        with ps.option_context("compute.isin_limit", 80):
+            self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+
+        other = np.random.randint(100, size=100)
+        self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+        with ps.option_context("compute.isin_limit", 80):
+            self.assert_eq(psser.isin(other).sort_index(), pser.isin(other).sort_index())
+
     def test_drop_duplicates(self):
         pdf = pd.DataFrame({"animal": ["lama", "cow", "lama", "beetle", "lama", "hippo"]})
         psdf = ps.from_pandas(pdf)
