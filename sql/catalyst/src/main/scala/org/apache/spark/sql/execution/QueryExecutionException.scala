@@ -25,7 +25,7 @@ class QueryExecutionException(message: String, cause: Throwable = null)
 /**
  * Query execution exception thrown from Spark with an error class.
  */
-private[Spark] class SparkQueryExecutionException(
+private[spark] class SparkQueryExecutionException(
     errorClass: String,
     messageParameters: Array[String])
   extends QueryExecutionException(
