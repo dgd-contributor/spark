@@ -28,12 +28,28 @@
     "message" : [ "Casting %s to %s causes overflow" ],
     "sqlState" : "22005"
   },
+  "COMMENT_ON_TABLE_UNSUPPORTED" : {
+    "message" : [ "comment on table is not supported" ],
+    "sqlState" : "0A000"
+  },
+  "CONCURRENT_MODIFICATION_ON_EXTERNAL_APPEND_ONLY_UNSAFE_ROW_ARRAY" : {
+    "message" : [ "The backing %s has been modified since the creation of this Iterator" ],
+    "sqlState" : "23000"
+  },
   "CONCURRENT_QUERY" : {
     "message" : [ "Another instance of this query was just started by a concurrent session." ]
+  },
+  "DATABASE_NAME_CONFLICT_WITH_SYSTEM_PRESERVED_DATABASE" : {
+    "message" : [ "%s is a system preserved database, please rename your existing database to resolve the name conflict, or set a different value for %s, and launch your Spark application again." ],
+    "sqlState" : "42000"
   },
   "DIVIDE_BY_ZERO" : {
     "message" : [ "divide by zero" ],
     "sqlState" : "22012"
+  },
+  "DO_EXECUTE_BROADCAST_NOT_IMPLEMENTED" : {
+    "message" : [ "%s does not implement doExecuteBroadcast" ],
+    "sqlState" : "42000"
   },
   "DUPLICATE_KEY" : {
     "message" : [ "Found duplicate keys '%s'" ],
@@ -48,6 +64,9 @@
   },
   "FAILED_SET_ORIGINAL_PERMISSION_BACK" : {
     "message" : [ "Failed to set original permission %s back to the created path: %s. Exception: %s" ]
+  },
+  "FAILED_TO_EXECUTE_QUERY" : {
+    "message" : [ "Hit an error when executing a query %s" ]
   },
   "GROUPING_COLUMN_MISMATCH" : {
     "message" : [ "Column of grouping (%s) can't be found in grouping columns %s" ],
@@ -92,6 +111,13 @@
   "INVALID_JSON_SCHEMA_MAPTYPE" : {
     "message" : [ "Input schema %s can only contain StringType as a key type for a MapType." ]
   },
+  "INVALID_START_INDEX" : {
+    "message" : [ "Invalid `startIndex` provided for generating iterator over the array. Total elements: %s, requested `startIndex`: %s" ],
+    "sqlState" : "42000"
+  },
+  "LEGACY_CHECKPOINT_DIRECTORY_EXISTS" : {
+    "message" : [ "Error: we detected a possible problem with the location of your checkpoint and you likely need to move it before restarting this query.", "Earlier version of Spark incorrectly escaped paths when writing out checkpoints for structured streaming. While this was corrected in Spark 3.0, it appears that your query was started using an earlier version that incorrectly handled the checkpoint path.", "Correct Checkpoint Directory: %s Incorrect Checkpoint Directory: %s", "Please move the data from the incorrect directory to the correct one, delete the incorrect directory, and then restart this query. If you believe you are receiving this message in error, you can disable it with the SQL conf %s" ]
+  },
   "LOGICAL_HINT_OPERATOR_NOT_REMOVED_DURING_ANALYSIS" : {
     "message" : [ "Internal error: logical hint operator should have been removed during analysis" ]
   },
@@ -110,6 +136,10 @@
     "message" : [ "Unknown static partition column: %s" ],
     "sqlState" : "42000"
   },
+  "NESTED_FIELD_UNSUPPORTED" : {
+    "message" : [ "Nested field $colName is not supported." ],
+    "sqlState" : "0A000"
+  },
   "NON_LITERAL_PIVOT_VALUES" : {
     "message" : [ "Literal expressions required for pivot values, found '%s'" ],
     "sqlState" : "42000"
@@ -118,13 +148,29 @@
     "message" : [ "PARTITION clause cannot contain a non-partition column name: %s" ],
     "sqlState" : "42000"
   },
+  "OUTPUT_DATATYPE_UNSUPPORTED_BY_NODE_WITHOUT_SERDE" : {
+    "message" : [ "%s without serde does not support %s as output data type" ],
+    "sqlState" : "0A000"
+  },
+  "PIVOT_NOT_AFTER_GROUP_BY_UNSUPPORTED" : {
+    "message" : [ "pivot is only supported after a groupBy" ],
+    "sqlState" : "0A000"
+  },
   "PIVOT_VALUE_DATA_TYPE_MISMATCH" : {
     "message" : [ "Invalid pivot value '%s': value data type %s does not match pivot column data type %s" ],
     "sqlState" : "42000"
   },
+  "RENAME_COLUMN_UNSUPPORTED_FOR_OLDER_MYSQL" : {
+    "message" : [ "Rename column is only supported for MySQL version 8.0 and above." ],
+    "sqlState" : "0A000"
+  },
   "RENAME_SRC_PATH_NOT_FOUND" : {
     "message" : [ "Failed to rename as %s was not found" ],
     "sqlState" : "22023"
+  },
+  "REPEATED_PIVOTS_UNSUPPORTED" : {
+    "message" : [ "repeated pivots are not supported" ],
+    "sqlState" : "0A000"
   },
   "ROW_FROM_CSV_PARSER_NOT_EXPECTED" : {
     "message" : [ "Expected one row from CSV parser." ],
@@ -133,6 +179,13 @@
   "SECOND_FUNCTION_ARGUMENT_NOT_INTEGER" : {
     "message" : [ "The second argument of '%s' function needs to be an integer." ],
     "sqlState" : "22023"
+  },
+  "SUBPROCESS_EXITED" : {
+    "message" : [ "Subprocess exited with status %s. " ]
+  },
+  "TRANSFORMATIONS_AND_ACTIONS_NOT_INVOKED_BY_DRIVER" : {
+    "message" : [ "Dataset transformations and actions can only be invoked by the driver, not inside of other Dataset transformations; for example, dataset1.map(x => dataset2.values.count()* x) is invalid because the values transformation and count action cannot be performed inside of the dataset1.map transformation. For more information, see SPARK-28702." ],
+    "sqlState" : "42000"
   },
   "UNABLE_TO_ACQUIRE_MEMORY" : {
     "message" : [ "Unable to acquire %s bytes of memory, got %s" ]
@@ -158,6 +211,10 @@
   },
   "UNSUPPORTED_TRANSACTION_BY_JDBC_SERVER" : {
     "message" : [ "The target JDBC server does not support transaction and can only support ALTER TABLE with a single action." ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_UPDATE_COLUMN_NULLABILITY" : {
+    "message" : [ "UpdateColumnNullability is not supported" ],
     "sqlState" : "0A000"
   },
   "WRITING_JOB_ABORTED" : {

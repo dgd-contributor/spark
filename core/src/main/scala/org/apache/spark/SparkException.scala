@@ -318,3 +318,5 @@ private[spark] class SparkSQLFeatureNotSupportedException(
   override def getErrorClass: String = errorClass
   override def getSqlState: String = SparkThrowableHelper.getSqlState(errorClass)
 }
+
+
