@@ -1249,7 +1249,7 @@ object QueryExecutionErrors {
       errorClass = "CANNOT_CREATE_ARRAY_WITH_ELEMENTS_EXCEED_LIMIT",
       messageParameters = Array(
         numElements.toString,
-        {ByteArrayMethods.MAX_ROUNDED_ARRAY_LENGTH},
+        {ByteArrayMethods.MAX_ROUNDED_ARRAY_LENGTH.toString},
         additionalErrorMessage))
   }
 
