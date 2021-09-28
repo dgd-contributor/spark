@@ -1625,9 +1625,43 @@ def to_datetime(
     DatetimeIndex(['1960-01-02', '1960-01-03', '1960-01-04'], dtype='datetime64[ns]', freq=None)
     """
 
+    _unit_map = {
+        "year": "year",
+        "years": "year",
+        "month": "month",
+        "months": "month",
+        "day": "day",
+        "days": "day",
+        "hour": "h",
+        "hours": "h",
+        "minute": "m",
+        "minutes": "m",
+        "second": "s",
+        "seconds": "s",
+        "ms": "ms",
+        "millisecond": "ms",
+        "milliseconds": "ms",
+        "us": "us",
+        "microsecond": "us",
+        "microseconds": "us",
+        "ns": "ns",
+        "nanosecond": "ns",
+        "nanoseconds": "ns",
+    }
+
+    # replace passed unit with _unit_map
+    def f(value):
+        if value in _unit_map:
+            return _unit_map[value]
+
+        if value.lower() in _unit_map:
+            return _unit_map[value.lower()]
+
+        return value
+
     def pandas_to_datetime(pser_or_pdf: Union[pd.DataFrame, pd.Series]) -> Series[np.datetime64]:
         if isinstance(pser_or_pdf, pd.DataFrame):
-            pser_or_pdf = pser_or_pdf[["year", "month", "day"]]
+            pser_or_pdf = pser_or_pdf[[*list_cols]]
         return pd.to_datetime(
             pser_or_pdf,
             errors=errors,
@@ -1640,7 +1674,15 @@ def to_datetime(
     if isinstance(arg, Series):
         return arg.pandas_on_spark.transform_batch(pandas_to_datetime)
     if isinstance(arg, DataFrame):
-        psdf = arg[["year", "month", "day"]]
+        unit = {k: f(k) for k in arg.keys()}
+        unit_rev = {v: k for k, v in unit.items()}
+        list_cols = [unit_rev["year"], unit_rev["month"], unit_rev["day"]]
+        for u in ["h", "m", "s", "ms", "us", "ns"]:
+            value = unit_rev.get(u)
+            if value is not None and value in arg:
+                list_cols.append(value)
+
+        psdf = arg[[*list_cols]]
         return psdf.pandas_on_spark.transform_batch(pandas_to_datetime)
     return pd.to_datetime(
         arg,
