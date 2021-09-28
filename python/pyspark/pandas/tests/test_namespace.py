@@ -71,23 +71,48 @@ class NamespaceTest(PandasOnSparkTestCase, SQLTestUtils):
             ps.to_datetime([1, 2, 3], unit="D", origin=pd.Timestamp("1960-01-01")),
         )
 
-        pdf = pd.DataFrame({"year": [2015, 2016], "month": [2, 3], "day": [4, 5], 'hour': [2, 3], 'minute': [10, 30], 'second': [21,25]})
+        pdf = pd.DataFrame(
+            {
+                "year": [2015, 2016],
+                "month": [2, 3],
+                "day": [4, 5],
+                "hour": [2, 3],
+                "minute": [10, 30],
+                "second": [21, 25],
+            }
+        )
         psdf = ps.from_pandas(pdf)
         dict_from_pdf = pdf.to_dict()
 
         self.assert_eq(pd.to_datetime(pdf), ps.to_datetime(psdf))
         self.assert_eq(pd.to_datetime(dict_from_pdf), ps.to_datetime(dict_from_pdf))
 
-        pdf = pd.DataFrame({"years": [2015, 2016], "months": [2, 3], "days": [4, 5], 'hour': [2, 3], 'minute': [10, 30],
-                            'second': [21, 25]})
+        pdf = pd.DataFrame(
+            {
+                "years": [2015, 2016],
+                "months": [2, 3],
+                "days": [4, 5],
+                "hour": [2, 3],
+                "minute": [10, 30],
+                "second": [21, 25],
+            }
+        )
         psdf = ps.from_pandas(pdf)
         dict_from_pdf = pdf.to_dict()
 
         self.assert_eq(pd.to_datetime(pdf), ps.to_datetime(psdf))
         self.assert_eq(pd.to_datetime(dict_from_pdf), ps.to_datetime(dict_from_pdf))
 
-        pdf = pd.DataFrame({"years": [2015, 2016], "months": [2, 3], "days": [4, 5], 'hours': [2, 3], 'minutes': [10, 30],
-                            'seconds': [21, 25]})
+        pdf = pd.DataFrame(
+            {
+                "years": [2015, 2016],
+                "months": [2, 3],
+                "days": [4, 5],
+                "hours": [2, 3],
+                "minutes": [10, 30],
+                "seconds": [21, 25],
+            }
+        )
         psdf = ps.from_pandas(pdf)
         dict_from_pdf = pdf.to_dict()
 
