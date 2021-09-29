@@ -1191,7 +1191,7 @@ object QueryExecutionErrors {
 
   def methodCalledInAnalyzerNotAllowedError(): Throwable = {
     new SparkRuntimeException(
-      errorClass = "METHOD_CALLED_IN_ANALYZER_NOT_ALLOWED",
+      errorClass = "CANNOT_CALL_METHOD_IN_ANALYZER",
       messageParameters = Array.empty)
   }
 
@@ -1211,7 +1211,7 @@ object QueryExecutionErrors {
   def pairUnsupportedAtFunctionError(
       r1: ValueInterval, r2: ValueInterval, function: String): Throwable = {
     new SparkUnsupportedOperationException(
-      errorClass = "PAIR_UNSUPPORTED_AT_FUNCTION",
+      errorClass = "UNSUPPORTED_PAIR_AT_FUNCTION",
       messageParameters = Array(r1.toString, r2.toString, function))
   }
 
@@ -1239,7 +1239,7 @@ object QueryExecutionErrors {
 
   def ruleIdNotFoundForRuleError(ruleName: String): Throwable = {
     new SparkNoSuchElementException(
-      errorClass = "RULE_ID_NOT_FOUND_FOR_RULE",
+      errorClass = "MISSING_RULE_ID",
       messageParameters = Array(ruleName))
   }
 
@@ -1265,7 +1265,7 @@ object QueryExecutionErrors {
 
   def remoteOperationsUnsupportedError(): Throwable = {
     new SparkRuntimeException(
-      errorClass = "REMOTE_OPERATIONS_UNSUPPORTED",
+      errorClass = "UNSUPPORTED_REMOTE_OPERATIONS",
       messageParameters = Array.empty)
   }
 
@@ -1277,13 +1277,13 @@ object QueryExecutionErrors {
 
   def parentSparkUIToAttachTabNotFoundError(): Throwable = {
     new SparkException(
-      errorClass = "PARENT_SPARK_UI_TO_ATTACH_TAB_NOT_FOUND",
+      errorClass = "MISSING_PARENT_SPARK_UI_TO_ATTACH_TAB",
       messageParameters = Array.empty, null)
   }
 
   def inferSchemaUnsupportedForHiveError(): Throwable = {
     new SparkUnsupportedOperationException(
-      errorClass = "INFER_SCHEMA_UNSUPPORTED_FOR_HIVE",
+      errorClass = "UNSUPPORTED_INFER_SCHEMA_FOR_HIVE",
       messageParameters = Array.empty)
   }
 
@@ -1304,13 +1304,13 @@ object QueryExecutionErrors {
 
   def cannotRemovePartitionDirError(partitionPath: Path): Throwable = {
     new SparkRuntimeException(
-      errorClass = "CANNOT_REMOVE_PARTITION_DIR",
+      errorClass = "CANNOT_REMOVE_PARTITION_DIRECTORY",
       messageParameters = Array(partitionPath.toString), null)
   }
 
   def cannotCreateStagingDirError(message: String, e: IOException): Throwable = {
     new SparkRuntimeException(
-      errorClass = "CANNOT_CREATE_STAGING_DIR",
+      errorClass = "CANNOT_CREATE_STAGING_DIRECTORY",
       messageParameters = Array(message), e)
   }
 

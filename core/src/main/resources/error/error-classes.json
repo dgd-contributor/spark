@@ -3,6 +3,10 @@
     "message" : [ "Field name %s is ambiguous and has %s matching fields in the struct." ],
     "sqlState" : "42000"
   },
+  "CANNOT_CALL_METHOD_IN_ANALYZER" : {
+    "message" : [ "This method should not be called in the analyzer" ],
+    "sqlState" : "42000"
+  },
   "CANNOT_CAST_DATATYPE" : {
     "message" : [ "Cannot cast %s to %s." ],
     "sqlState" : "22005"
@@ -15,7 +19,7 @@
     "message" : [ "Cannot create array with %s elements of data due to exceeding the limit %s elements for ArrayData.%s" ],
     "sqlState" : "2202E"
   },
-  "CANNOT_CREATE_STAGING_DIR" : {
+  "CANNOT_CREATE_STAGING_DIRECTORY" : {
     "message" : [ "Cannot create staging directory: %s" ],
     "sqlState" : "42000"
   },
@@ -29,7 +33,7 @@
     "message" : [ "Cannot parse decimal" ],
     "sqlState" : "42000"
   },
-  "CANNOT_REMOVE_PARTITION_DIR" : {
+  "CANNOT_REMOVE_PARTITION_DIRECTORY" : {
     "message" : [ "Cannot remove partition directory '%s'" ],
     "sqlState" : "42000"
   },
@@ -102,10 +106,6 @@
     "message" : [ "Index %s must be between 0 and the length of the ArrayData." ],
     "sqlState" : "22023"
   },
-  "INFER_SCHEMA_UNSUPPORTED_FOR_HIVE" : {
-    "message" : [ "inferSchema is not supported for hive data source." ],
-    "sqlState" : "0A000"
-  },
   "INVALID_ARRAY_INDEX" : {
     "message" : [ "Invalid index: %s, numElements: %s" ]
   },
@@ -138,10 +138,6 @@
   "MAP_KEY_DOES_NOT_EXIST" : {
     "message" : [ "Key %s does not exist." ]
   },
-  "METHOD_CALLED_IN_ANALYZER_NOT_ALLOWED" : {
-    "message" : [ "This method should not be called in the analyzer" ],
-    "sqlState" : "42000"
-  },
   "MISSING_COLUMN" : {
     "message" : [ "cannot resolve '%s' given input columns: [%s]" ],
     "sqlState" : "42000"
@@ -149,6 +145,14 @@
   "MISSING_METHOD" : {
     "message" : [ "A method named \"%s\" is not declared in any enclosing class nor any supertype" ],
     "sqlState" : "42000"
+  },
+  "MISSING_PARENT_SPARK_UI_TO_ATTACH_TAB" : {
+    "message" : [ "Parent SparkUI to attach this tab to not found!" ],
+    "sqlState" : "42000"
+  },
+  "MISSING_RULE_ID" : {
+    "message" : [ "Rule id not found for %s" ],
+    "sqlState" : "22023"
   },
   "MISSING_STATIC_PARTITION_COLUMN" : {
     "message" : [ "Unknown static partition column: %s" ],
@@ -165,21 +169,9 @@
   "ONCE_STRATEGY_IDEMPOTENCE_IS_BROKEN_FOR_BATCH" : {
     "message" : [ "Once strategy's idempotence is broken for batch %s\n%s" ]
   },
-  "PAIR_UNSUPPORTED_AT_FUNCTION" : {
-    "message" : [ "Not supported pair: %s, %s at %s" ],
-    "sqlState" : "0A000"
-  },
-  "PARENT_SPARK_UI_TO_ATTACH_TAB_NOT_FOUND" : {
-    "message" : [ "Parent SparkUI to attach this tab to not found!" ],
-    "sqlState" : "42000"
-  },
   "PIVOT_VALUE_DATA_TYPE_MISMATCH" : {
     "message" : [ "Invalid pivot value '%s': value data type %s does not match pivot column data type %s" ],
     "sqlState" : "42000"
-  },
-  "REMOTE_OPERATIONS_UNSUPPORTED" : {
-    "message" : [ "Remote operations not supported" ],
-    "sqlState" : "0A000"
   },
   "RENAME_SRC_PATH_NOT_FOUND" : {
     "message" : [ "Failed to rename as %s was not found" ],
@@ -191,10 +183,6 @@
   "ROW_FROM_CSV_PARSER_NOT_EXPECTED" : {
     "message" : [ "Expected one row from CSV parser." ],
     "sqlState" : "42000"
-  },
-  "RULE_ID_NOT_FOUND_FOR_RULE" : {
-    "message" : [ "Rule id not found for %s" ],
-    "sqlState" : "22023"
   },
   "SECOND_FUNCTION_ARGUMENT_NOT_INTEGER" : {
     "message" : [ "The second argument of '%s' function needs to be an integer." ],
@@ -221,8 +209,20 @@
     "message" : [ "Unsupported data type %s" ],
     "sqlState" : "0A000"
   },
+  "UNSUPPORTED_INFER_SCHEMA_FOR_HIVE" : {
+    "message" : [ "inferSchema is not supported for hive data source." ],
+    "sqlState" : "0A000"
+  },
   "UNSUPPORTED_LITERAL_TYPE" : {
     "message" : [ "Unsupported literal type %s %s" ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_PAIR_AT_FUNCTION" : {
+    "message" : [ "Not supported pair: %s, %s at %s" ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_REMOTE_OPERATIONS" : {
+    "message" : [ "Remote operations not supported" ],
     "sqlState" : "0A000"
   },
   "UNSUPPORTED_SIMPLE_STRING_WITH_NODE_ID" : {
