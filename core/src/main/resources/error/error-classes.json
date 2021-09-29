@@ -28,10 +28,6 @@
     "message" : [ "Casting %s to %s causes overflow" ],
     "sqlState" : "22005"
   },
-  "COMMENT_ON_TABLE_UNSUPPORTED" : {
-    "message" : [ "comment on table is not supported" ],
-    "sqlState" : "0A000"
-  },
   "CONCURRENT_MODIFICATION_ON_EXTERNAL_APPEND_ONLY_UNSAFE_ROW_ARRAY" : {
     "message" : [ "The backing %s has been modified since the creation of this Iterator" ],
     "sqlState" : "23000"
@@ -136,10 +132,6 @@
     "message" : [ "Unknown static partition column: %s" ],
     "sqlState" : "42000"
   },
-  "NESTED_FIELD_UNSUPPORTED" : {
-    "message" : [ "Nested field $colName is not supported." ],
-    "sqlState" : "0A000"
-  },
   "NON_LITERAL_PIVOT_VALUES" : {
     "message" : [ "Literal expressions required for pivot values, found '%s'" ],
     "sqlState" : "42000"
@@ -148,29 +140,13 @@
     "message" : [ "PARTITION clause cannot contain a non-partition column name: %s" ],
     "sqlState" : "42000"
   },
-  "OUTPUT_DATATYPE_UNSUPPORTED_BY_NODE_WITHOUT_SERDE" : {
-    "message" : [ "%s without serde does not support %s as output data type" ],
-    "sqlState" : "0A000"
-  },
-  "PIVOT_NOT_AFTER_GROUP_BY_UNSUPPORTED" : {
-    "message" : [ "pivot is only supported after a groupBy" ],
-    "sqlState" : "0A000"
-  },
   "PIVOT_VALUE_DATA_TYPE_MISMATCH" : {
     "message" : [ "Invalid pivot value '%s': value data type %s does not match pivot column data type %s" ],
     "sqlState" : "42000"
   },
-  "RENAME_COLUMN_UNSUPPORTED_FOR_OLDER_MYSQL" : {
-    "message" : [ "Rename column is only supported for MySQL version 8.0 and above." ],
-    "sqlState" : "0A000"
-  },
   "RENAME_SRC_PATH_NOT_FOUND" : {
     "message" : [ "Failed to rename as %s was not found" ],
     "sqlState" : "22023"
-  },
-  "REPEATED_PIVOTS_UNSUPPORTED" : {
-    "message" : [ "repeated pivots are not supported" ],
-    "sqlState" : "0A000"
   },
   "ROW_FROM_CSV_PARSER_NOT_EXPECTED" : {
     "message" : [ "Expected one row from CSV parser." ],
@@ -198,12 +174,36 @@
     "message" : [ "Please add an implementation for a column change here" ],
     "sqlState" : "0A000"
   },
+  "UNSUPPORTED_COMMENT_ON_TABLE" : {
+    "message" : [ "comment on table is not supported" ],
+    "sqlState" : "0A000"
+  },
   "UNSUPPORTED_DATATYPE" : {
     "message" : [ "Unsupported data type %s" ],
     "sqlState" : "0A000"
   },
   "UNSUPPORTED_LITERAL_TYPE" : {
     "message" : [ "Unsupported literal type %s %s" ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_NESTED_FIELD" : {
+    "message" : [ "Nested field $colName is not supported." ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_OUTPUT_DATATYPE_BY_NODE_WITHOUT_SERDE" : {
+    "message" : [ "%s without serde does not support %s as output data type" ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_PIVOT_NOT_AFTER_GROUP_BY" : {
+    "message" : [ "pivot is only supported after a groupBy" ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_RENAME_COLUMN_FOR_OLDER_MYSQL" : {
+    "message" : [ "Rename column is only supported for MySQL version 8.0 and above." ],
+    "sqlState" : "0A000"
+  },
+  "UNSUPPORTED_REPEATED_PIVOTS" : {
+    "message" : [ "repeated pivots are not supported" ],
     "sqlState" : "0A000"
   },
   "UNSUPPORTED_SIMPLE_STRING_WITH_NODE_ID" : {
