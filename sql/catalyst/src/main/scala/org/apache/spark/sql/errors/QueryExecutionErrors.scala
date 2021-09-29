@@ -1726,7 +1726,7 @@ object QueryExecutionErrors {
   def legacyCheckpointDirectoryExistsError(
       checkpointPath: Path, legacyCheckpointDir: String): Throwable = {
     new SparkException(
-      errorClass = "LEGACY_CHECKPOINT_DIRECTORY_EXIST",
+      errorClass = "LEGACY_CHECKPOINT_DIRECTORY_EXISTS",
       messageParameters = Array(
         checkpointPath.toString,
         legacyCheckpointDir,
@@ -1743,7 +1743,7 @@ object QueryExecutionErrors {
   def outputDataTypeUnsupportedByNodeWithoutSerdeError(
       nodeName: String, dt: DataType): Throwable = {
     new SparkException(
-      errorClass = "OUTPUT_DATATYPE_UNSUPPORTED_BY_NODE_WITHOUT_SERDE",
+      errorClass = "UNSUPPORTED_OUTPUT_DATATYPE_BY_NODE_WITHOUT_SERDE",
       messageParameters = Array(nodeName, dt.getClass.getSimpleName), null)
   }
 
@@ -1774,7 +1774,7 @@ object QueryExecutionErrors {
 
   def commentOnTableUnsupportedError(): Throwable = {
     new SparkSQLFeatureNotSupportedException(
-      errorClass = "COMMENT_ON_TABLE_UNSUPPORTED",
+      errorClass = "UNSUPPORTED_COMMENT_ON_TABLE",
       messageParameters = Array.empty)
   }
 
@@ -1786,7 +1786,7 @@ object QueryExecutionErrors {
 
   def renameColumnUnsupportedForOlderMySQLError(): Throwable = {
     new SparkSQLFeatureNotSupportedException(
-      errorClass = "RENAME_COLUMN_UNSUPPORTED_FOR_OLDER_MYSQL",
+      errorClass = "UNSUPPORTED_RENAME_COLUMN_FOR_OLDER_MYSQL",
       messageParameters = Array.empty)
   }
 
@@ -1799,7 +1799,7 @@ object QueryExecutionErrors {
 
   def nestedFieldUnsupportedError(colName: String): Throwable = {
     new SparkUnsupportedOperationException(
-      errorClass = "NESTED_FIELD_UNSUPPORTED",
+      errorClass = "UNSUPPORTED_NESTED_FIELD",
       messageParameters = Array(colName))
   }
 
@@ -1811,14 +1811,14 @@ object QueryExecutionErrors {
 
   def repeatedPivotsUnsupportedError(): Throwable = {
     new SparkUnsupportedOperationException(
-      errorClass = "REPEATED_PIVOTS_UNSUPPORTED",
+      errorClass = "UNSUPPORTED_REPEATED_PIVOTS",
       messageParameters = Array.empty
     )
   }
 
   def pivotNotAfterGroupByUnsupportedError(): Throwable = {
     new SparkUnsupportedOperationException(
-      errorClass = "PIVOT_NOT_AFTER_GROUP_BY_UNSUPPORTED",
+      errorClass = "UNSUPPORTED_PIVOT_NOT_AFTER_GROUP_BY",
       messageParameters = Array.empty)
   }
 }
